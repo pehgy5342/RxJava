@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit
 /**
  * Operator
  **/
-class OperatorActivity : AppCompatActivity() {
+class CreateActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_operator)
+        setContentView(R.layout.activity_create)
 
 
         //Timer
