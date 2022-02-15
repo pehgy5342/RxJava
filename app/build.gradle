@@ -41,6 +41,25 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //RxJava
+    //RxJava2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+
+    //RxJava3
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+
+    //RxKotlin
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+
+    //Rxjava Math
+//    implementation 'io.reactivex:rxjava-math:1.0.0'
+
+    implementation 'com.github.akarnokd:rxjava2-extensions:0.20.0'
+
+
+
+
+
 }

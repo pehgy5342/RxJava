@@ -17,8 +17,18 @@ class FilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
 
+
+        //Map & Filter
+        Observable
+            .just(1, 2, 3)
+            .filter { it % 2 == 1 }
+            .map { it * 2 }
+            .subscribe {
+                println("Filter : $it")
+            }
+
         //distinct(過濾掉重複)
-        Observable.just("1", 1, true, 0.5)
+//        Observable.just("6", 1, true, 0.5)
         Observable.just(1, 1, 2, 2, 1, 3)
             .distinct()
             .subscribe(object : Observer<Any> {
@@ -26,7 +36,7 @@ class FilterActivity : AppCompatActivity() {
                 }
 
                 override fun onNext(t: Any) {
-                    println("onNext: $t")
+                    println("Distinct : $t")
                 }
 
                 override fun onError(e: Throwable) {
@@ -40,7 +50,7 @@ class FilterActivity : AppCompatActivity() {
         Observable.just(1, 2, 3, 4)
             .elementAt(1)
             .subscribe {
-                println("$it")
+                println("ElementAt : $it")
             }
 
         //Filter
@@ -51,12 +61,12 @@ class FilterActivity : AppCompatActivity() {
             }
 
 
-        //First
-//        Observable.just(1,2,3)
-//            .first()
-//            .subscribe {
-//                println()
-//            }
+        //FirstElement
+        Observable.just(5,6,7)
+            .firstElement()
+            .subscribe {
+                println("FirstElement $it")
+            }
 
 
         //IgnoreElements
@@ -77,19 +87,19 @@ class FilterActivity : AppCompatActivity() {
             })
 
 
-        //Last
-//        Observable.just(1,2,3)
-//            .last()
-//            .subscribe {
-//                println()
-//            }
+        //lastElement
+        Observable.just(1,2,3)
+            .lastElement()
+            .subscribe {
+                println("lastElement : $it")
+            }
 
         //sample
         val time = Observable.interval(0,0,TimeUnit.SECONDS)
         time
             .sample(3,TimeUnit.SECONDS)
             .subscribe {
-                println("$it")
+                println("Sample :$it")
             }
 
         //skip(忽略)
@@ -119,7 +129,6 @@ class FilterActivity : AppCompatActivity() {
             .subscribe {
                 println("takeLast : $it")
             }
-
     }
 
 }

@@ -7,11 +7,6 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.lang.Exception
 import kotlin.collections.ArrayList
-import io.reactivex.ObservableEmitter
-
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.functions.Action
-import io.reactivex.functions.Consumer
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,16 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
-        /**
-         *Disposable
-         **/
-
-
-        /**
-         *Observer
-         **/
-
+        //create
         Observable.create<String> { emitter ->
             emitter.onNext("hello word A")
             emitter.onNext("hello word B")
@@ -44,12 +30,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        /**
-         * Observable()
-         **/
-
-
-        //create
         Observable.create<String> {
             try {
                 it.onNext("my")

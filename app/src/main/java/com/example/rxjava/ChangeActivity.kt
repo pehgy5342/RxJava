@@ -8,6 +8,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function3
 import io.reactivex.observables.GroupedObservable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.rxkotlin.toObservable
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 
@@ -47,6 +49,16 @@ class ChangeActivity : AppCompatActivity() {
         str.flatMap { s -> s.toSet() }.run { println("flatMap : $this") }
 
 
+        arrayListOf(
+            Book("Kotlin", arrayListOf(Page(arrayListOf("Page1", "Page2")))),
+            Book("Java", arrayListOf(Page(arrayListOf("Page3", "Page4")))),
+            Book("Android", arrayListOf(Page(arrayListOf("Page5", "Page6"))))
+        ).toObservable().flatMap {
+            Observable.fromIterable(it.pageList)
+        }.flatMap { Observable.fromIterable(it.wordList) }
+            .subscribeBy(onNext = { println("flatMap : $it") })
+
+
         //GroupBy
         val EVEN_NUMBER_KEY = "even number"
         val ODD_NUMBER_KEY = "odd number"
@@ -54,7 +66,6 @@ class ChangeActivity : AppCompatActivity() {
             .groupBy { t ->
                 if (t % 2 == 0) {
                     EVEN_NUMBER_KEY
-
                 } else {
                     ODD_NUMBER_KEY
                 }
@@ -132,10 +143,11 @@ class ChangeActivity : AppCompatActivity() {
                     println("onComplete")
                 }
             })
-        //windows
 
     }
 }
 
 
-data class Word(val s: String, val k: Int)
+data class Book(val name: String, val pageList: List<Page>)
+
+data class Page(val wordList: List<String>)

@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.functions.Consumer
+import io.reactivex.rxkotlin.subscribeBy
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -18,33 +21,49 @@ class CreateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create)
 
 
-        //Timer
-        Observable.timer(3000,TimeUnit.MILLISECONDS)
+        //Empty(不發射數據，只會調用onComplete)
+        Observable.empty<String>().subscribeBy(
+            onNext = { println(" next ") },
+            onComplete = { println(" complete ") },
+            onError = { println(" error ") }
+        )
+
+        //Never(甚麼也不會做)
+        Observable.never<String>().subscribeBy(
+            onNext = { println(" next ") },
+            onComplete = { println(" complete ") },
+            onError = { println(" error ") }
+        )
+
+        //Error(不發射數據，以錯誤終止，只會調用onError)
+        Observable.error<Exception>(Exception()).subscribeBy(
+            onNext = { println(" next ") },
+            onComplete = { println(" complete ") },
+            onError = { println(" error ") }
+        )
+
+
+        //Interval(幾秒後開始顯示,隔幾秒再顯示)
+        Observable.interval(5000, 3000, TimeUnit.MILLISECONDS)
             .subscribe {
-                Log.e("111","1111")
+                Log.e("Interval", "Hello~")
             }
 
-        //Range
-        Observable.range(7,5)
+
+        //Range(指定範圍顯示)
+        Observable.range(7, 5)
             .subscribe {
-                println(it)
+                println("Range :$it")
             }
 
+        //Repeat(設定範圍讓他重複出現)
+        Observable.range(5, 5).repeat().subscribe { println("repeat : $it") }
 
-        //Interval
-        Observable.interval(3000, 3000, TimeUnit.MILLISECONDS)
-            .subscribe{
-//                Log.e("555","Hello~")
-            }
 
-        //Map & Filter
-        Observable
-            .just(1, 2, 3)
-            .filter { it % 2 == 1 }
-            .map { it * 2 }
+        //Timer(幾秒後開始顯示)
+        Observable.timer(3000, TimeUnit.MILLISECONDS)
             .subscribe {
-                println(it)
+                Log.e("Timer", "Timer")
             }
-
     }
 }
