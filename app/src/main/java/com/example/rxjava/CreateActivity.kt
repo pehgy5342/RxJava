@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.ObservableSource
 import io.reactivex.functions.Consumer
 import io.reactivex.rxkotlin.subscribeBy
 import java.lang.Exception
 import java.util.*
+import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,10 +18,11 @@ import java.util.concurrent.TimeUnit
  **/
 class CreateActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-
 
         //Empty(不發射數據，只會調用onComplete)
         Observable.empty<String>().subscribeBy(

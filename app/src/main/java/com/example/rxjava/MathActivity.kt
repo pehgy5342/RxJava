@@ -71,5 +71,6 @@ class MathActivity : AppCompatActivity() {
         MathObservable.sumInt(sumObservable)
             .subscribe { println("Sum : $it") }
 
+
     }
 }

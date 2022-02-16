@@ -36,8 +36,10 @@ class CombineActivity : AppCompatActivity() {
             }
 
 
-        //startWith
-
+        //startWith(指定在被觀察者的前面插入資料)
+        val names = Observable.just("Spock", "McCoy");
+        val otherNames = Observable.just("Git", "Code","8");
+        names.startWith(otherNames).subscribe { println("startWith : $it") }
 
 
 

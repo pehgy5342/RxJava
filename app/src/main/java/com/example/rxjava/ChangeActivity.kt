@@ -5,13 +5,10 @@ import android.os.Bundle
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function3
 import io.reactivex.observables.GroupedObservable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.rxkotlin.toObservable
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
+import java.util.concurrent.TimeUnit
 
 /*
  Change
@@ -21,9 +18,11 @@ class ChangeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change)
 
-        //buffer
+        val list = ArrayList<String>()
+
+        //buffer(整合成一個包裹再輸出，count決定一包幾個)
         Observable.just("A", "B", "C", "D", "E", "F")
-            .buffer(3)
+            .buffer(4)
             .subscribe(object : Observer<List<String>> {
                 override fun onSubscribe(d: Disposable) {
                     println("onSubscribe")
@@ -33,7 +32,7 @@ class ChangeActivity : AppCompatActivity() {
                     for (i in t) {
                         println("String: $i")
                     }
-                    println("String: $t")
+                    println("buffer: $t")
                 }
 
                 override fun onError(e: Throwable) {
@@ -44,11 +43,32 @@ class ChangeActivity : AppCompatActivity() {
                 }
             })
 
+        //cast
+        val numbers = Observable.just<Number>(1, 4.0, 3f, 7, 12, 4.6, 5)
+        numbers.filter { x: Number? ->
+            Integer::class.java.isInstance(x)
+        }
+            .cast(Integer::class.java)
+            .subscribe { x: Integer? -> println(x) }
+
+        //concatMap
+        Observable.range(0, 5)
+            .concatMap { i: Int? ->
+                val delay = Math.round(Math.random() * 2)
+                Observable.timer(delay, TimeUnit.SECONDS)
+                    .map { n: Long? -> i }
+            }
+            .blockingSubscribe { obj: Int? ->
+                println("concatMap : $obj") }
+
+
+
+
         //flatMap
         val str = listOf("abc", "de")
         str.flatMap { s -> s.toSet() }.run { println("flatMap : $this") }
 
-
+        //flatMap
         arrayListOf(
             Book("Kotlin", arrayListOf(Page(arrayListOf("Page1", "Page2")))),
             Book("Java", arrayListOf(Page(arrayListOf("Page3", "Page4")))),
@@ -56,7 +76,13 @@ class ChangeActivity : AppCompatActivity() {
         ).toObservable().flatMap {
             Observable.fromIterable(it.pageList)
         }.flatMap { Observable.fromIterable(it.wordList) }
-            .subscribeBy(onNext = { println("flatMap : $it") })
+            .subscribeBy(onNext = {
+                list.add(it)
+                println("flatMap : $it")
+                println("list : $list")
+            }, onError = {
+                println("Error : $it")
+            })
 
 
         //GroupBy
@@ -103,6 +129,14 @@ class ChangeActivity : AppCompatActivity() {
             })
 
 
+        //map
+        Observable.just(1, 2, 3)
+            .map { t ->
+                t * 2
+            }.subscribe {
+                println("Map : $it")
+            }
+
         //Scan
         Observable.just("J", "A", "V", "A")
             .scan { t1, t2 -> t1 + t2 }
@@ -112,7 +146,7 @@ class ChangeActivity : AppCompatActivity() {
                 }
 
                 override fun onNext(t: String) {
-                    println(t)
+                    println("Scan : $t")
                 }
 
                 override fun onError(e: Throwable) {
@@ -143,6 +177,8 @@ class ChangeActivity : AppCompatActivity() {
                     println("onComplete")
                 }
             })
+
+        //window
 
     }
 }
