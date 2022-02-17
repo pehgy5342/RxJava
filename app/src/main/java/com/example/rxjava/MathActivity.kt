@@ -67,7 +67,7 @@ class MathActivity : AppCompatActivity() {
             })
 
         //Sum
-        val sumObservable = Observable.fromArray(1, 2, 3)
+        val sumObservable = Observable.fromArray(1, 2, 3, 4)
         MathObservable.sumInt(sumObservable)
             .subscribe { println("Sum : $it") }
 

@@ -11,7 +11,7 @@ import io.reactivex.rxkotlin.toObservable
 import java.util.concurrent.TimeUnit
 
 /*
- Change
+ 變換類
 */
 class ChangeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +60,6 @@ class ChangeActivity : AppCompatActivity() {
             }
             .blockingSubscribe { obj: Int? ->
                 println("concatMap : $obj") }
-
-
 
 
         //flatMap
@@ -119,7 +117,6 @@ class ChangeActivity : AppCompatActivity() {
                         })
                     }
                 }
-
                 override fun onError(e: Throwable) {
                 }
 
@@ -127,7 +124,6 @@ class ChangeActivity : AppCompatActivity() {
                     println("onComplete")
                 }
             })
-
 
         //map
         Observable.just(1, 2, 3)
@@ -157,6 +153,7 @@ class ChangeActivity : AppCompatActivity() {
                 }
             })
 
+        //Scan
         Observable.just(1, 2, 3, 4, 5)
             .scan(object : Function2<Int, Int, Int> {
                 override fun invoke(p1: Int, p2: Int): Int {

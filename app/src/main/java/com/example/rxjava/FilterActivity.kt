@@ -11,6 +11,9 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
+/*
+ 過濾類
+*/
 class FilterActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +93,6 @@ class FilterActivity : AppCompatActivity() {
         val firstOrDefault = firstObservable.first("D");
         firstOrDefault.subscribe { it -> println("first : $it") }
 
-
         //FirstElement
         Observable.just(5, 6, 7)
             .firstElement()
@@ -120,19 +122,16 @@ class FilterActivity : AppCompatActivity() {
         completable.doOnComplete { println("1秒就出現!") }
             .blockingAwait()
 
-
         //ignoreElements()
         val data = io.reactivex.rxjava3.core.Observable.intervalRange(1, 5, 1, 1, TimeUnit.SECONDS)
         val com: Completable = data.ignoreElements()
         com.doOnComplete { println("5秒就出現!") }
             .blockingAwait()
 
-
         //Last
         val lastObservable = Observable.just("A", "B", "C");
         val lastOrDefault = lastObservable.last("D");
         lastOrDefault.subscribe { it -> println("last : $it") }
-
 
         //lastElement
         Observable.just(1, 2, 3)
@@ -315,5 +314,4 @@ class FilterActivity : AppCompatActivity() {
                 println("takeLast : $it")
             }
     }
-
 }

@@ -10,7 +10,9 @@ import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.functions.Function
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-
+/*
+ Scheduler(調度器)
+*/
 class SchedulersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,6 @@ class SchedulersActivity : AppCompatActivity() {
             }
         }
 
-
         //Subscription
         getObservable
             .filter { it > 3 }
@@ -55,7 +56,6 @@ class SchedulersActivity : AppCompatActivity() {
                 }
             })
 
-
         //多線程
         Observable.just("Hey", "Apple")
             .subscribeOn(Schedulers.newThread()) //發生在新的線程
@@ -70,7 +70,6 @@ class SchedulersActivity : AppCompatActivity() {
                     println("Schedulers : $t") //消費事件
                 }
             })
-
     }
 }
 

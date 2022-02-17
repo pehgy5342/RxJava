@@ -1,21 +1,16 @@
 package com.example.rxjava
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.functions.Consumer
 import io.reactivex.rxkotlin.subscribeBy
-import java.lang.Exception
-import java.util.*
-import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit
 
-/**
- * Operator
- **/
+/*
+ 創建類
+*/
 class CreateActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
 

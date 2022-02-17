@@ -1,14 +1,14 @@
 package com.example.rxjava
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import java.lang.Exception
-import kotlin.collections.ArrayList
 
-
+/*
+ Operator操作符
+*/
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
 
             })
 
-
         //just
         Observable
             .just(1, 2, 3)
@@ -105,6 +104,5 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-
     }
 }
