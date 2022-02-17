@@ -66,7 +66,7 @@ class FilterActivity : AppCompatActivity() {
             .subscribe { println("ofType : $it") }
 
 
-        //ElementAt()
+        //ElementAt(獲取指定位置元素)
         Observable.just(1, 2, 3, 4)
             .elementAt(1)
             .subscribe {
@@ -80,7 +80,7 @@ class FilterActivity : AppCompatActivity() {
                 println("Filter : $it")
             }
 
-        //Filter
+        //Filter(過濾)
         Observable
             .just(1, 2, 3)
             .filter { it % 2 == 1 }
@@ -88,19 +88,19 @@ class FilterActivity : AppCompatActivity() {
                 println("Filter : $it")
             }
 
-        //First
+        //First(第一)
         val firstObservable = Observable.just("A", "B", "C");
         val firstOrDefault = firstObservable.first("D");
         firstOrDefault.subscribe { it -> println("first : $it") }
 
-        //FirstElement
+        //FirstElement(獲取第一位置元素)
         Observable.just(5, 6, 7)
             .firstElement()
             .subscribe {
                 println("FirstElement $it")
             }
 
-        //IgnoreElements
+        //IgnoreElements(忽略元素)
         Observable.just(1, 2, 3, 4, 5, 6, 7, 8)
             .ignoreElements()
             .subscribe(object : CompletableObserver {
@@ -116,24 +116,24 @@ class FilterActivity : AppCompatActivity() {
                 }
             })
 
-        //ignoreElement()
+        //ignoreElement(忽略元素)
         val a: Single<Long> = Single.timer(1, TimeUnit.SECONDS)
         val completable: Completable = a.ignoreElement()
         completable.doOnComplete { println("1秒就出現!") }
             .blockingAwait()
 
-        //ignoreElements()
+        //ignoreElements(忽略元素)
         val data = io.reactivex.rxjava3.core.Observable.intervalRange(1, 5, 1, 1, TimeUnit.SECONDS)
         val com: Completable = data.ignoreElements()
         com.doOnComplete { println("5秒就出現!") }
             .blockingAwait()
 
-        //Last
+        //Last(最後)
         val lastObservable = Observable.just("A", "B", "C");
         val lastOrDefault = lastObservable.last("D");
         lastOrDefault.subscribe { it -> println("last : $it") }
 
-        //lastElement
+        //lastElement(獲取最後位置元素)
         Observable.just(1, 2, 3)
             .lastElement()
             .subscribe {
@@ -263,7 +263,7 @@ class FilterActivity : AppCompatActivity() {
                 println("throttleLatest : $item ")
             }
 
-        //timeout
+        //timeout(超時)
         io.reactivex.rxjava3.core.Observable.create<String> { emitter ->
             emitter.onNext("A")
 
@@ -286,14 +286,14 @@ class FilterActivity : AppCompatActivity() {
                 println("timeout : $item ")
             }
 
-        //skip(忽略前面)
+        //skip(跳過前面)
         Observable.just(1, 2, 3, 4)
             .skip(2)
             .subscribe {
                 println("skip : $it")
             }
 
-        //skipLast(忽略後面)
+        //skipLast(跳過後面)
         Observable.just(1, 2, 3, 4)
             .skipLast(2)
             .subscribe {

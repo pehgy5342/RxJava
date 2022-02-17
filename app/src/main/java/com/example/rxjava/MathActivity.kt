@@ -19,7 +19,7 @@ class MathActivity : AppCompatActivity() {
         setContentView(R.layout.activity_math)
 
 
-        //average
+        //average(平均)
         val averageObservable = Observable.fromArray(1, 2, 3, 4, 5)
         MathObservable.averageDouble(averageObservable)
             .subscribe { println("average : $it") }
@@ -34,18 +34,19 @@ class MathActivity : AppCompatActivity() {
             println("Concat :$it")
         }
 
-        //Reduce
+        //Reduce(只顯示最後加總結果，Scan則是每加總一次就印出一次)
         Observable.just(0, 1, 2, 3)
             .reduce { t1, t2 -> t1 + t2 }.subscribe {
                 println("Reduce : $it")
+                //印出 6
             }
 
-        //Max
+        //Max(最大值)
         val maxObservable = Observable.fromArray(1, 2, 3)
         MathObservable.max(maxObservable)
             .subscribe { println("Max : $it") }
 
-        //Min
+        //Min(最小值)
         val minObservable = Observable.fromArray(1, 2, 3)
         MathObservable.min(minObservable)
             .subscribe { println("Min : $it") }
